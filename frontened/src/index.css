@@ -117,6 +117,243 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+
+
+/* custom css */
+
+/* 1. Google Fonts: Plus Jakarta Sans for UI, JetBrains Mono for metrics/numbers */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+
+/* 3. Base Layer: Variables and Baseline Reset */
+@layer base {
+  /* LIGHT THEME (Default) */
+  :root,
+  .light,
+  [data-theme="light"] {
+    /* Fonts */
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Dashboard Backgrounds & Surfaces */
+    --base: #F8FAFC;              /* Main dashboard canvas */
+    --surface: #FFFFFF;           /* Metric cards, panels, modals */
+    --subtle: #F1F5F9;            /* Hover rows, pill backgrounds */
+    --muted: #E2E8F0;             /* Inactive badges, dividers */
+
+    /* Borders */
+    --border: #E2E8F0;            /* Card borders, grid lines */
+    --border-subtle: #CBD5E1;     /* Fainter inner separators */
+
+    /* Typography Contrast Levels */
+    --text-primary: #0F172A;      /* Main headings and titles */
+    --text-secondary: #475569;    /* Subheadings, active labels */
+    --text-muted: #94A3B8;        /* Timestamps, helper notes */
+
+    /* Brand Accent (Modern Indigo) */
+    --primary: #6366F1;
+    --primary-hover: #4F46E5;
+    --primary-light: #EEF2FF;
+    --primary-foreground: #FFFFFF;
+
+    /* Status Badges */
+    --success: #10B981;
+    --success-bg: #ECFDF5;
+    --warning: #F59E0B;
+    --warning-bg: #FFFBEB;
+    --danger: #F43F5E;
+    --danger-bg: #FFF1F2;
+
+    /* Radii & Shadows */
+    --radius: 0.75rem;
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* DARK THEME */
+  .dark,
+  [data-theme="dark"] {
+    /* Deep space midnight surfaces */
+    --base: #060E20;
+    --surface: #0B1326;
+    --subtle: #131B2E;
+    --muted: #1E293B;
+
+    /* Borders */
+    --border: #1E293B;
+    --border-subtle: #334155;
+
+    /* Typography Contrast */
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+
+    /* Brand Accent */
+    --primary: #818CF8;
+    --primary-hover: #6366F1;
+    --primary-light: rgba(99, 102, 241, 0.15);
+    --primary-foreground: #FFFFFF;
+
+    /* Status Badges */
+    --success: #34D399;
+    --success-bg: rgba(16, 185, 129, 0.15);
+    --warning: #FBBF24;
+    --warning-bg: rgba(245, 158, 11, 0.15);
+    --danger: #FB7185;
+    --danger-bg: rgba(244, 63, 94, 0.15);
+
+    --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Global baseline resets */
+  html {
+    font-size: 16px;              /* Standard root base size */
+  }
+
+  body {
+    background-color: var(--base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+  /* 1. Global Document Smoothing */
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    /* Prevents horizontal overflow shifts on mobile */
+    overflow-x: hidden;
+    /* Improves readability and tap responsiveness on touchscreens */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 2. Fluid Responsive Heading Scale */
+  /* Formula: clamp(min-size, dynamic-viewport-calc, max-size) */
+  h1 {
+    font-size: clamp(1.75rem, 1.25rem + 2.5vw, 2.75rem); /* ~28px on mobile -> 44px on desktop */
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: clamp(1.35rem, 1.1rem + 1.5vw, 2rem);    /* ~22px on mobile -> 32px on desktop */
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: clamp(1.15rem, 1rem + 0.75vw, 1.5rem);   /* ~18px on mobile -> 24px on desktop */
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: clamp(0.875rem, 0.85rem + 0.15vw, 1rem); /* 14px mobile -> 16px desktop */
+    line-height: 1.6;
+  }
+
+  /* 3. Smooth Transitions for Interactive Elements */
+  button, 
+  a, 
+  input, 
+  select {
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  /* 4. Fluid Card Padding (Tight on phones, spacious on desktop) */
+  .dashboard-card {
+    padding: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  }
+}
+
+/* 4. The @theme inline Bridge (Registers clean utility classes in Tailwind v4) */
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Background utilities: bg-base, bg-surface, bg-subtle, bg-muted */
+  --color-base: var(--base);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-muted: var(--muted);
+
+  /* Border utilities: border-border, border-border-subtle */
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+
+  /* Text utilities: text-text-primary, text-text-secondary, text-text-muted */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Primary brand utilities: bg-primary, hover:bg-primary-hover, text-primary-foreground */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* Status utilities: bg-success-bg, text-success, etc. */
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+
+  /* Elevation: shadow-card */
+  --shadow-card: var(--shadow-card);
+
+  /* Fluid font utility tokens */
+  --font-size-fluid-h1: clamp(1.75rem, 1.25rem + 2.5vw, 2.75rem);
+  --font-size-fluid-h2: clamp(1.35rem, 1.1rem + 1.5vw, 2rem);
+  --font-size-fluid-metric: clamp(1.85rem, 1.2rem + 3vw, 3.25rem);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f0eb;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #d4d2c9;
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #b8b5a8;
+}
+
+/* Editorial badge styling */
+.badge-editorial {
+	font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+/* Grain / paper subtle effect */
+.paper-texture {
+	background-color: #faf9f5;
+	background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
+	background-size: 24px 24px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
