@@ -1,0 +1,4 @@
+plane-->
+feature--> notes,daily planner,your collage time table,project management
+navbar-->[ Dashboard                                 notification icon   theme chane icon img name]
+sidebar-->
