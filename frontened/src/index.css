@@ -116,11 +116,16 @@
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.556 0 0);
 }
-
 /* custom css */
 
-/* 1. Google Fonts: Plus Jakarta Sans for UI, JetBrains Mono for metrics/numbers */
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+/* 1. Google Fonts: 5 families
+   1) Plus Jakarta Sans -> main UI text
+   2) JetBrains Mono    -> metrics, numbers, code
+   3) Inter             -> font used in the dashboard mockup (clock, headings, cards)
+   4) Dancing Script    -> cursive (greetings, notes, signatures)
+   5) Hachi Maru Pop    -> anime / cute handwritten pop (badges, fun accents)
+*/
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Hachi+Maru+Pop&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"); /* loads all 5 font families in one request */
 
 /* 3. Base Layer: Variables and Baseline Reset */
 @layer base {
@@ -128,17 +133,21 @@
 	:root,
 	.light,
 	[data-theme="light"] {
-		/* Fonts */
-		--font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-		--font-mono: "JetBrains Mono", monospace;
+		/* Fonts (5 families) */
+		--font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif; /* font 1: main UI text */
+		--font-mono: "JetBrains Mono", ui-monospace, monospace; /* font 2: metrics and numbers */
+		--font-inter: "Inter", system-ui, -apple-system, sans-serif; /* font 3: mockup font */
+		--font-cursive: "Dancing Script", "Brush Script MT", cursive; /* font 4: cursive */
+		--font-anime:
+			"Hachi Maru Pop", "Hiragino Maru Gothic ProN", "Comic Sans MS", cursive; /* font 5: anime / cute pop */
 
 		/* break point */
-		--breakpoint-xs: 425px;
+		--breakpoint-xs: 425px; /* extra small phones */
 
 		/* Dashboard Backgrounds & Surfaces */
-		--base: #f8fafc; /* Main dashboard canvas */
+		--base: #F7F5F2; /* Main dashboard canvas */
 		--surface: #ffffff; /* Metric cards, panels, modals */
-		--subtle: #f1f5f9; /* Hover rows, pill backgrounds */
+		--subtle: #E5E7EB; /* Hover rows, pill backgrounds */
 		--muted: #e2e8f0; /* Inactive badges, dividers */
 
 		/* Borders */
@@ -151,61 +160,98 @@
 		--text-muted: #94a3b8; /* Timestamps, helper notes */
 
 		/* Brand Accent (Modern Indigo) */
-		--primary: #6366f1;
-		--primary-hover: #4f46e5;
-		--primary-light: #eef2ff;
-		--primary-foreground: #ffffff;
+		--primary: #6366f1; /* main brand colour */
+		--primary-hover: #4f46e5; /* darker shade on hover */
+		--primary-light: #eef2ff; /* soft tint for backgrounds */
+		--primary-foreground: #ffffff; /* text on primary buttons */
 
 		/* Status Badges */
-		--success: #10b981;
-		--success-bg: #ecfdf5;
-		--warning: #f59e0b;
-		--warning-bg: #fffbeb;
-		--danger: #f43f5e;
-		--danger-bg: #fff1f2;
+		--success: #10b981; /* online, completed */
+		--success-bg: #ecfdf5; /* soft green background */
+		--warning: #f59e0b; /* pending, caution */
+		--warning-bg: #fffbeb; /* soft amber background */
+		--danger: #f43f5e; /* errors, destructive actions */
+		--danger-bg: #fff1f2; /* soft red background */
 
 		/* Radii & Shadows */
-		--radius: 0.75rem;
+		--radius: 0.75rem; /* default corner rounding (12px) */
 		--shadow-card:
 			0 4px 6px -1px rgba(0, 0, 0, 0.05),
-			0 2px 4px -2px rgba(0, 0, 0, 0.05);
+			0 2px 4px -2px rgba(0, 0, 0, 0.05); /* light card elevation */
 	}
 
 	/* DARK THEME */
 	.dark,
 	[data-theme="dark"] {
 		/* Deep space midnight surfaces */
-		--base: #060e20;
-		--surface: #0b1326;
-		--subtle: #131b2e;
-		--muted: #1e293b;
+		--base: #1F242B; /* main dark canvas */
+		--surface: #0b1326; /* cards, panels, modals */
+		--subtle: #131b2e; /* hover rows, pill backgrounds */
+		--muted: #1e293b; /* inactive badges, dividers */
 
 		/* Borders */
-		--border: #1e293b;
-		--border-subtle: #334155;
+		--border: #1e293b; /* card borders, grid lines */
+		--border-subtle: #334155; /* fainter inner separators */
 
 		/* Typography Contrast */
-		--text-primary: #f8fafc;
-		--text-secondary: #94a3b8;
-		--text-muted: #64748b;
+		--text-primary: #f8fafc; /* main headings and titles */
+		--text-secondary: #94a3b8; /* subheadings, active labels */
+		--text-muted: #64748b; /* timestamps, helper notes */
 
 		/* Brand Accent */
-		--primary: #818cf8;
-		--primary-hover: #6366f1;
-		--primary-light: rgba(99, 102, 241, 0.15);
-		--primary-foreground: #ffffff;
+		--primary: #818cf8; /* lighter indigo for dark surfaces */
+		--primary-hover: #6366f1; /* shade on hover */
+		--primary-light: rgba(99, 102, 241, 0.15); /* translucent tint for backgrounds */
+		--primary-foreground: #ffffff; /* text on primary buttons */
 
 		/* Status Badges */
-		--success: #34d399;
-		--success-bg: rgba(16, 185, 129, 0.15);
-		--warning: #fbbf24;
-		--warning-bg: rgba(245, 158, 11, 0.15);
-		--danger: #fb7185;
-		--danger-bg: rgba(244, 63, 94, 0.15);
+		--success: #34d399; /* online, completed */
+		--success-bg: rgba(16, 185, 129, 0.15); /* translucent green background */
+		--warning: #fbbf24; /* pending, caution */
+		--warning-bg: rgba(245, 158, 11, 0.15); /* translucent amber background */
+		--danger: #fb7185; /* errors, destructive actions */
+		--danger-bg: rgba(244, 63, 94, 0.15); /* translucent red background */
 
 		--shadow-card:
 			0 10px 15px -3px rgba(0, 0, 0, 0.4),
-			0 4px 6px -4px rgba(0, 0, 0, 0.4);
+			0 4px 6px -4px rgba(0, 0, 0, 0.4); /* deeper card elevation for dark mode */
+	}
+
+	/* CUSTOM TYPE SIZES (same in light and dark)
+	   Fixed sizes for small UI text, fluid clamp() sizes for big text.
+	   Cursive and anime faces look smaller than a sans at the same size,
+	   so they get their own, slightly larger scale. */
+	:root {
+		/* Small UI text (fixed) */
+		--size-micro: 0.625rem; /* 10px: timestamps like "Today, 10:00 AM" */
+		--size-caption: 0.6875rem; /* 11px: helper notes, section captions */
+		--size-small: 0.75rem; /* 12px: badges, card sub-text */
+		--size-label: 0.8125rem; /* 13px: card titles, input text */
+
+		/* Body and headings (fluid) */
+		--size-body: clamp(0.875rem, 0.85rem + 0.15vw, 1rem); /* 14px mobile -> 16px desktop */
+		--size-lead: clamp(1rem, 0.95rem + 0.3vw, 1.25rem); /* 16px mobile -> 20px desktop */
+		--size-title: clamp(1.15rem, 1rem + 0.75vw, 1.5rem); /* 18px mobile -> 24px desktop */
+
+		/* Numbers (fluid) */
+		--size-metric: clamp(1.85rem, 1.2rem + 3vw, 3.25rem); /* big card numbers like 92% */
+		--size-clock: clamp(2.75rem, 1.6rem + 5vw, 5rem); /* the 09:41 clock */
+		--size-display: clamp(2.25rem, 1.5rem + 3.5vw, 4rem); /* hero text */
+
+		/* Cursive: Dancing Script */
+		--size-script-sm: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); /* 18px -> 22px */
+		--size-script: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem); /* 24px -> 36px */
+		--size-script-xl: clamp(2.25rem, 1.6rem + 3vw, 3.75rem); /* 36px -> 60px */
+
+		/* Anime: Hachi Maru Pop */
+		--size-anime-sm: 0.875rem; /* 14px: small badges */
+		--size-anime: clamp(1.125rem, 0.95rem + 1vw, 1.75rem); /* 18px -> 28px */
+		--size-anime-xl: clamp(1.75rem, 1.2rem + 2.5vw, 3rem); /* 28px -> 48px */
+
+		/* Letter spacing helpers */
+		--tracking-tight: -0.03em; /* tight spacing for big numbers */
+		--tracking-label: 0.04em; /* open spacing for small labels */
+		--tracking-anime: 0.02em; /* slight air for the anime font */
 	}
 
 	/* Global baseline resets */
@@ -214,33 +260,33 @@
 	}
 
 	body {
-		background-color: var(--base);
-		color: var(--text-primary);
-		font-family: var(--font-sans);
-		line-height: 1.5;
-		-webkit-font-smoothing: antialiased;
+		background-color: var(--base); /* page background follows the theme */
+		color: var(--text-primary); /* default text colour */
+		font-family: var(--font-sans); /* Plus Jakarta Sans everywhere by default */
+		line-height: 1.5; /* comfortable reading height */
+		-webkit-font-smoothing: antialiased; /* smoother text on macOS and iOS */
 		transition:
 			background-color 0.2s ease,
 			color 0.2s ease,
-			border-color 0.2s ease;
+			border-color 0.2s ease; /* smooth light/dark switch */
 	}
 
 	* {
-		border-color: var(--border);
+		border-color: var(--border); /* every border uses the theme border colour */
 	}
 	/* 1. Global Document Smoothing */
 	html {
-		scroll-behavior: smooth;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
+		scroll-behavior: smooth; /* animated anchor scrolling */
+		text-rendering: optimizeLegibility; /* better kerning and ligatures */
+		-webkit-font-smoothing: antialiased; /* smoother text on macOS and iOS */
+		-moz-osx-font-smoothing: grayscale; /* smoother text on Firefox for macOS */
 	}
 
 	body {
 		/* Prevents horizontal overflow shifts on mobile */
 		/* overflow-x: hidden; */
 		/* Improves readability and tap responsiveness on touchscreens */
-		-webkit-tap-highlight-color: transparent;
+		-webkit-tap-highlight-color: transparent; /* removes the grey flash on tap */
 	}
 
 	/* 2. Fluid Responsive Heading Scale */
@@ -251,9 +297,9 @@
 			1.25rem + 2.5vw,
 			2.75rem
 		); /* ~28px on mobile -> 44px on desktop */
-		line-height: 1.15;
-		letter-spacing: -0.025em;
-		font-weight: 700;
+		line-height: 1.15; /* tight, for big text */
+		letter-spacing: -0.025em; /* slightly tighter letters */
+		font-weight: 700; /* bold */
 	}
 
 	h2 {
@@ -262,29 +308,21 @@
 			1.1rem + 1.5vw,
 			2rem
 		); /* ~22px on mobile -> 32px on desktop */
-		line-height: 1.25;
-		letter-spacing: -0.02em;
-		font-weight: 600;
+		line-height: 1.25; /* a little looser than h1 */
+		letter-spacing: -0.02em; /* slightly tighter letters */
+		font-weight: 600; /* semibold */
 	}
 
 	h3 {
-		font-size: clamp(
-			1.15rem,
-			1rem + 0.75vw,
-			1.5rem
-		); /* ~18px on mobile -> 24px on desktop */
-		line-height: 1.35;
-		letter-spacing: -0.015em;
-		font-weight: 600;
+		font-size: var(--size-title); /* ~18px on mobile -> 24px on desktop */
+		line-height: 1.35; /* a little looser than h2 */
+		letter-spacing: -0.015em; /* slightly tighter letters */
+		font-weight: 600; /* semibold */
 	}
 
 	p {
-		font-size: clamp(
-			0.875rem,
-			0.85rem + 0.15vw,
-			1rem
-		); /* 14px mobile -> 16px desktop */
-		line-height: 1.6;
+		font-size: var(--size-body); /* 14px mobile -> 16px desktop */
+		line-height: 1.6; /* relaxed for paragraphs */
 	}
 
 	/* 3. Smooth Transitions for Interactive Elements */
@@ -296,94 +334,229 @@
 			background-color 0.15s ease,
 			border-color 0.15s ease,
 			color 0.15s ease,
-			box-shadow 0.15s ease;
+			box-shadow 0.15s ease; /* quick hover and focus changes */
 	}
 
 	/* 4. Fluid Card Padding (Tight on phones, spacious on desktop) */
 	.dashboard-card {
-		padding: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+		padding: clamp(1rem, 0.75rem + 1vw, 1.75rem); /* 16px on phones -> 28px on desktop */
 	}
 }
 
 /* 4. The @theme inline Bridge (Registers clean utility classes in Tailwind v4) */
 @theme inline {
-	--font-sans: var(--font-sans);
-	--font-mono: var(--font-mono);
+	/* Font utilities: font-sans, font-mono, font-inter, font-cursive, font-anime */
+	--font-sans: var(--font-sans); /* font-sans: Plus Jakarta Sans */
+	--font-mono: var(--font-mono); /* font-mono: JetBrains Mono */
+	--font-inter: var(--font-inter); /* font-inter: Inter */
+	--font-cursive: var(--font-cursive); /* font-cursive: Dancing Script */
+	--font-anime: var(--font-anime); /* font-anime: Hachi Maru Pop */
 
 	/* Background utilities: bg-base, bg-surface, bg-subtle, bg-muted */
-	--color-base: var(--base);
-	--color-surface: var(--surface);
-	--color-subtle: var(--subtle);
-	--color-muted: var(--muted);
+	--color-base: var(--base); /* bg-base */
+	--color-surface: var(--surface); /* bg-surface */
+	--color-subtle: var(--subtle); /* bg-subtle */
+	--color-muted: var(--muted); /* bg-muted */
 
 	/* Border utilities: border-border, border-border-subtle */
-	--color-border: var(--border);
-	--color-border-subtle: var(--border-subtle);
+	--color-border: var(--border); /* border-border */
+	--color-border-subtle: var(--border-subtle); /* border-border-subtle */
 
 	/* Text utilities: text-text-primary, text-text-secondary, text-text-muted */
-	--color-text-primary: var(--text-primary);
-	--color-text-secondary: var(--text-secondary);
-	--color-text-muted: var(--text-muted);
+	--color-text-primary: var(--text-primary); /* text-text-primary */
+	--color-text-secondary: var(--text-secondary); /* text-text-secondary */
+	--color-text-muted: var(--text-muted); /* text-text-muted */
 
 	/* Primary brand utilities: bg-primary, hover:bg-primary-hover, text-primary-foreground */
-	--color-primary: var(--primary);
-	--color-primary-hover: var(--primary-hover);
-	--color-primary-light: var(--primary-light);
-	--color-primary-foreground: var(--primary-foreground);
+	--color-primary: var(--primary); /* bg-primary, text-primary */
+	--color-primary-hover: var(--primary-hover); /* hover:bg-primary-hover */
+	--color-primary-light: var(--primary-light); /* bg-primary-light */
+	--color-primary-foreground: var(--primary-foreground); /* text-primary-foreground */
 
 	/* Status utilities: bg-success-bg, text-success, etc. */
-	--color-success: var(--success);
-	--color-success-bg: var(--success-bg);
-	--color-warning: var(--warning);
-	--color-warning-bg: var(--warning-bg);
-	--color-danger: var(--danger);
-	--color-danger-bg: var(--danger-bg);
+	--color-success: var(--success); /* text-success */
+	--color-success-bg: var(--success-bg); /* bg-success-bg */
+	--color-warning: var(--warning); /* text-warning */
+	--color-warning-bg: var(--warning-bg); /* bg-warning-bg */
+	--color-danger: var(--danger); /* text-danger */
+	--color-danger-bg: var(--danger-bg); /* bg-danger-bg */
 
 	/* Elevation: shadow-card */
-	--shadow-card: var(--shadow-card);
+	--shadow-card: var(--shadow-card); /* shadow-card */
 
-	/* Fluid font utility tokens */
-	--font-size-fluid-h1: clamp(1.75rem, 1.25rem + 2.5vw, 2.75rem);
-	--font-size-fluid-h2: clamp(1.35rem, 1.1rem + 1.5vw, 2rem);
-	--font-size-fluid-metric: clamp(1.85rem, 1.2rem + 3vw, 3.25rem);
+	/* Custom size utilities: text-micro, text-caption, text-small, text-label,
+	   text-body, text-lead, text-title, text-metric, text-clock, text-display,
+	   text-script-sm, text-script, text-script-xl,
+	   text-anime-sm, text-anime, text-anime-xl */
+	--text-micro: var(--size-micro); /* text-micro: 10px */
+	--text-micro--line-height: 1.4; /* line height for text-micro */
+	--text-caption: var(--size-caption); /* text-caption: 11px */
+	--text-caption--line-height: 1.45; /* line height for text-caption */
+	--text-small: var(--size-small); /* text-small: 12px */
+	--text-small--line-height: 1.5; /* line height for text-small */
+	--text-label: var(--size-label); /* text-label: 13px */
+	--text-label--line-height: 1.5; /* line height for text-label */
+	--text-body: var(--size-body); /* text-body: 14px -> 16px */
+	--text-body--line-height: 1.6; /* line height for text-body */
+	--text-lead: var(--size-lead); /* text-lead: 16px -> 20px */
+	--text-lead--line-height: 1.5; /* line height for text-lead */
+	--text-title: var(--size-title); /* text-title: 18px -> 24px */
+	--text-title--line-height: 1.35; /* line height for text-title */
+	--text-metric: var(--size-metric); /* text-metric: big card numbers */
+	--text-metric--line-height: 1; /* line height for text-metric */
+	--text-clock: var(--size-clock); /* text-clock: the 09:41 clock */
+	--text-clock--line-height: 1; /* line height for text-clock */
+	--text-display: var(--size-display); /* text-display: hero text */
+	--text-display--line-height: 1.1; /* line height for text-display */
+	--text-script-sm: var(--size-script-sm); /* text-script-sm: small cursive */
+	--text-script-sm--line-height: 1.2; /* line height for text-script-sm */
+	--text-script: var(--size-script); /* text-script: medium cursive */
+	--text-script--line-height: 1.15; /* line height for text-script */
+	--text-script-xl: var(--size-script-xl); /* text-script-xl: large cursive */
+	--text-script-xl--line-height: 1.1; /* line height for text-script-xl */
+	--text-anime-sm: var(--size-anime-sm); /* text-anime-sm: small anime */
+	--text-anime-sm--line-height: 1.4; /* line height for text-anime-sm */
+	--text-anime: var(--size-anime); /* text-anime: medium anime */
+	--text-anime--line-height: 1.3; /* line height for text-anime */
+	--text-anime-xl: var(--size-anime-xl); /* text-anime-xl: large anime */
+	--text-anime-xl--line-height: 1.2; /* line height for text-anime-xl */
 
-  /* break point */
-	--breakpoint-xs: var(--breakpoint-xs);
+	/* Fluid font utility tokens (kept from the old file) */
+	--font-size-fluid-h1: clamp(1.75rem, 1.25rem + 2.5vw, 2.75rem); /* fluid h1 size */
+	--font-size-fluid-h2: clamp(1.35rem, 1.1rem + 1.5vw, 2rem); /* fluid h2 size */
+	--font-size-fluid-metric: var(--size-metric); /* fluid metric size */
+
+	/* break point: must be a real value, var() does not work inside @media */
+	--breakpoint-xs: 425px; /* enables the xs: prefix, e.g. xs:flex */
+}
+
+/* 5. Type roles: ready-made font + size + weight combos.
+   Layered as components so Tailwind utilities (text-*, font-*) can still override them. */
+@layer components {
+	/* Main UI text: Plus Jakarta Sans */
+	.type-ui {
+		font-family: var(--font-sans); /* font 1 */
+		font-size: var(--size-body); /* 14px -> 16px */
+		line-height: 1.6; /* relaxed reading height */
+	}
+
+	/* Mockup font: Inter */
+	.type-inter {
+		font-family: var(--font-inter); /* font 3 */
+		font-size: var(--size-label); /* 13px */
+		line-height: 1.5; /* standard UI height */
+	}
+
+	/* Big number on cards: JetBrains Mono (92%, 90%) */
+	.type-metric {
+		font-family: var(--font-mono); /* font 2 */
+		font-size: var(--size-metric); /* big fluid number */
+		font-weight: 700; /* bold */
+		line-height: 1; /* no extra space around numbers */
+		letter-spacing: var(--tracking-tight); /* tight spacing */
+		font-variant-numeric: tabular-nums; /* equal-width digits so numbers don't jump */
+	}
+
+	/* Clock: Inter bold (09:41) */
+	.type-clock {
+		font-family: var(--font-inter); /* font 3 */
+		font-size: var(--size-clock); /* extra big fluid size */
+		font-weight: 700; /* bold */
+		line-height: 1; /* no extra space around the time */
+		letter-spacing: var(--tracking-tight); /* tight spacing */
+		font-variant-numeric: tabular-nums; /* equal-width digits so the clock doesn't wobble */
+	}
+
+	/* Small section label: PREVIOUS NOTES */
+	.type-label {
+		font-family: var(--font-inter); /* font 3 */
+		font-size: var(--size-caption); /* 11px */
+		font-weight: 600; /* semibold */
+		letter-spacing: var(--tracking-label); /* open spacing for small text */
+		color: var(--text-secondary); /* softer than headings */
+	}
+
+	/* Cursive: Dancing Script (greetings, note titles, signatures) */
+	.type-script {
+		font-family: var(--font-cursive); /* font 4 */
+		font-size: var(--size-script); /* 24px -> 36px */
+		font-weight: 600; /* semibold */
+		line-height: 1.15; /* tight, script letters are tall */
+	}
+	.type-script-sm {
+		font-family: var(--font-cursive); /* font 4 */
+		font-size: var(--size-script-sm); /* 18px -> 22px */
+		font-weight: 600; /* semibold */
+		line-height: 1.2; /* tight, script letters are tall */
+	}
+	.type-script-xl {
+		font-family: var(--font-cursive); /* font 4 */
+		font-size: var(--size-script-xl); /* 36px -> 60px */
+		font-weight: 700; /* bold */
+		line-height: 1.1; /* tight, for large text */
+	}
+
+	/* Anime: Hachi Maru Pop (only has weight 400, so no fake bold) */
+	.type-anime {
+		font-family: var(--font-anime); /* font 5 */
+		font-size: var(--size-anime); /* 18px -> 28px */
+		font-weight: 400; /* the only weight this font has */
+		font-synthesis: none; /* stops the browser from faking bold or italic */
+		line-height: 1.3; /* comfortable height for rounded letters */
+		letter-spacing: var(--tracking-anime); /* slight air between letters */
+		text-shadow: 0.06em 0.06em 0 color-mix(in srgb, var(--primary) 35%, transparent); /* soft pop shadow in the theme's primary colour */
+	}
+	.type-anime-sm {
+		font-family: var(--font-anime); /* font 5 */
+		font-size: var(--size-anime-sm); /* 14px */
+		font-weight: 400; /* the only weight this font has */
+		font-synthesis: none; /* stops the browser from faking bold or italic */
+		line-height: 1.4; /* comfortable height for small text */
+		letter-spacing: var(--tracking-anime); /* slight air between letters */
+	}
+	.type-anime-xl {
+		font-family: var(--font-anime); /* font 5 */
+		font-size: var(--size-anime-xl); /* 28px -> 48px */
+		font-weight: 400; /* the only weight this font has */
+		font-synthesis: none; /* stops the browser from faking bold or italic */
+		line-height: 1.2; /* tight, for large text */
+		letter-spacing: var(--tracking-anime); /* slight air between letters */
+		text-shadow: 0.06em 0.06em 0 color-mix(in srgb, var(--primary) 35%, transparent); /* soft pop shadow in the theme's primary colour */
+	}
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
+	width: 8px; /* vertical scrollbar thickness */
+	height: 8px; /* horizontal scrollbar thickness */
 }
 
 ::-webkit-scrollbar-track {
-	background: #f1f0eb;
+	background: #f1f0eb; /* scrollbar rail colour */
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #d4d2c9;
-	border-radius: 9999px;
+	background: #d4d2c9; /* draggable handle colour */
+	border-radius: 9999px; /* fully rounded handle */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #b8b5a8;
+	background: #b8b5a8; /* darker handle on hover */
 }
 
 /* Editorial badge styling */
 .badge-editorial {
-	font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-	letter-spacing: 0.04em;
-	text-transform: uppercase;
+	font-feature-settings: "cv02", "cv03", "cv04", "cv11"; /* alternate letter shapes */
+	letter-spacing: 0.04em; /* open spacing for small caps text */
+	text-transform: uppercase; /* ALL CAPS */
 }
 
 /* Grain / paper subtle effect */
 .paper-texture {
-	background-color: #faf9f5;
-	background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
-	background-size: 24px 24px;
+	background-color: #faf9f5; /* warm paper colour */
+	background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0); /* faint dot grain */
+	background-size: 24px 24px; /* spacing between dots */
 }
-
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
